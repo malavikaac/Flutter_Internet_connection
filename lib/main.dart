@@ -22,9 +22,15 @@ import 'package:internet_connectivity_checker/internet_connectivity_checker.dart
 
 void main() => runApp(const MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  var time = DateTime.now();
   @override
   Widget build(BuildContext context) {
     TextStyle kTextStyle = Theme.of(context)
@@ -42,18 +48,30 @@ class MyApp extends StatelessWidget {
         body: Center(
           child: Container(
             width: 300,
-            height: 300,
+            height: 100,
             margin: const EdgeInsets.all(20),
             child: ConnectivityBuilder(
               interval: const Duration(seconds: 5),
               builder: (ConnectivityStatus status) {
                 if (status == ConnectivityStatus.online) {
                   return Container(
+                    height: 100,
+                    width: 200,
                     decoration: BoxDecoration(
                       color: Colors.green,
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    child: Center(child: Text("Online", style: kTextStyle)),
+                    child: Center(
+                        child: Column(
+                      children: [
+                        Text("Online", style: kTextStyle),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(Icons.public, size: 30),
+                        )
+                        // Text(time as String),
+                      ],
+                    )),
                   );
                 } else if (status == ConnectivityStatus.offline) {
                   return Container(
@@ -63,7 +81,17 @@ class MyApp extends StatelessWidget {
                     ),
                     // trigger file write method here like ( read the json file update the file sync with the new value  )
                     // void writeToJson()
-                    child: Center(child: Text("Offline", style: kTextStyle)),
+                    child: Center(
+                        child: Column(
+                      children: [
+                        Text("Offline", style: kTextStyle),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(Icons.public_off),
+                        )
+                        // Text(time as String),
+                      ],
+                    )),
                   );
                 } else if (status == ConnectivityStatus.checking) {
                   return Container(
