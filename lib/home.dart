@@ -64,6 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text('Connectivity example app'),
         elevation: 4,
       ),
+      //************************checking which net is connecting*****************************/
       body: Column(
         children: [
           Container(
